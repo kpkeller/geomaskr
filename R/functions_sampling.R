@@ -89,7 +89,7 @@ sample_circle_boundedbox <- function(x, y, r, r0=0,
 
 
 
-#' @rdname myst_sample_radius_bounded
+#' @rdname st_sample_radius_bounded
 #' @export
 #' @importFrom sf st_sample st_coordinates st_crs st_set_crs
 #'
@@ -97,7 +97,7 @@ sample_circle_boundedbox <- function(x, y, r, r0=0,
 #' New point is transformed to CRS of `pt`
 #'
 #'
-myst_sample_radius <- function(pt, radius=100, region){
+st_sample_radius <- function(pt, radius=100, region){
 
     new_pt <- sf::st_sample(region,
                         type="unifdisc",
@@ -125,14 +125,14 @@ myst_sample_radius <- function(pt, radius=100, region){
 #' @importFrom sf st_intersects st_distance
 #'
 # #' @examples
-myst_sample_radius_bounded <- function(pt,
+st_sample_radius_bounded <- function(pt,
                                        radius=100,
                                        region,
                                        minradius=0,
                                        maxretry=1000,
                                        return_dist=TRUE){
 
-    new_pt <- myst_sample_radius(pt,
+    new_pt <- st_sample_radius(pt,
                                  radius=radius,
                                  region=region)
     inside <- sf::st_intersects(region, new_pt, sparse=F)
@@ -146,7 +146,7 @@ myst_sample_radius_bounded <- function(pt,
 
     if((!inside) | tooclose){
         for (i in 1:maxretry){
-            newer_pt <- myst_sample_radius(pt,
+            newer_pt <- st_sample_radius(pt,
                                            radius=radius,
                                            region=region)
             move_dist <-  as.numeric(st_distance(pt, newer_pt))
@@ -164,9 +164,9 @@ myst_sample_radius_bounded <- function(pt,
     out
 }
 
-##' @rdname myst_sample_radius_bounded
+##' @rdname st_sample_radius_bounded
 ##' @param pts Collection of points to resample location for
-myst_sample_radius_bounded_set <- function(pts,
+st_sample_radius_bounded_set <- function(pts,
                                            radius=100,
                                            region,
                                            minradius=0,
@@ -174,7 +174,7 @@ myst_sample_radius_bounded_set <- function(pts,
     newpts <- data.frame()
     newdists <- numeric()
     for (j in 1:length(pts)){
-        newpts_temp <- myst_sample_radius_bounded(pt=pts[j],
+        newpts_temp <- st_sample_radius_bounded(pt=pts[j],
                                                   radius=radius,
                                                   region=region,
                                                   minradius=minradius,
