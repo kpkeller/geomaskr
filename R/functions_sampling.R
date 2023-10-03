@@ -18,8 +18,8 @@
 #' sample_circle(x=0, y=0, r=1, r0=0)
 sample_circle <- function(x, y, r, r0=0){
     n <- length(x)
-    r_samp = sqrt(r0^2 + (r^2-r0^2)*(runif(n)))
-    theta_samp = runif(n) * 2 * pi
+    r_samp = sqrt(r0^2 + (r^2-r0^2)*(stats::runif(n)))
+    theta_samp = stats::runif(n) * 2 * pi
     x = x + r_samp * cos(theta_samp)
     y = y + r_samp * sin(theta_samp)
     data.frame(x=x, y=y)
@@ -91,7 +91,7 @@ sample_circle_boundedbox <- function(x, y, r, r0=0,
 
 #' @rdname myst_sample_radius_bounded
 #' @export
-#' @importFrom sf st_sample
+#' @importFrom sf st_sample st_coordinates st_crs st_set_crs
 #'
 #' @details
 #' New point is transformed to CRS of `pt`
@@ -103,9 +103,9 @@ myst_sample_radius <- function(pt, radius=100, region){
                         size=1,
                         type="unifdisc",
                         radius=radius,
-                        centre=st_coordinates(pt),
+                        centre=sf::st_coordinates(pt),
                         n=1)
-    new_pt <- st_set_crs(new_pt, st_crs(pt))
+    new_pt <- sf::st_set_crs(new_pt, sf::st_crs(pt))
     new_pt
 }
 
