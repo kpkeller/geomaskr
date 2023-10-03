@@ -31,7 +31,7 @@ st_sample_radius_bounded_set(
 
 \item{radius}{Radius of circle to sample within}
 
-\item{region}{`sfc` object}
+\item{region}{A \code{sfc} object used to bound the perturbed locations.}
 
 \item{minradius}{Minimum radius}
 
@@ -42,7 +42,7 @@ st_sample_radius_bounded_set(
 \item{pts}{Collection of points to resample location for}
 }
 \value{
-an `sfc` object containg the new point
+\code{sfc} object containg the new point
 }
 \description{
 Randomly samples points within a given radius using  functions from `sf` and `spatstat`.

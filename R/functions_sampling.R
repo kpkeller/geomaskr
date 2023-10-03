@@ -115,12 +115,12 @@ st_sample_radius <- function(pt, radius=100, region){
 #'
 #' @param pt Point location to perturb. Assumed to be an
 #' @param radius Radius of circle to sample within
-#' @param region `sfc` object
+#' @param region A \code{sfc} object used to bound the perturbed locations.
 #' @param minradius Minimum radius
 #' @param maxretry Number of times to retry point selection if selected point is either inside minimum radius or not in bounding region
 #' @param return_dist Logical indicator of whether or not to return the distance of new point from original point
 #'
-#' @return an `sfc` object containg the new point
+#' @return \code{sfc} object containg the new point
 #' @export
 #' @importFrom sf st_intersects st_distance
 #'
