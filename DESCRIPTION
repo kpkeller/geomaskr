@@ -1,7 +1,7 @@
 Package: geomaskr
 Type: Package
 Title: Geomask Locations in R
-Version: 0.1.0.9001
+Version: 0.1.0.9002
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: GPL (>= 3)
@@ -12,3 +12,5 @@ RoxygenNote: 7.2.3
 Authors@R: c(
     person("Kayleigh", "Keller", email="kayleigh.keller@colostate.edu", role = c("aut", "cre"))
   )
+Depends: 
+    R (>= 2.10)
