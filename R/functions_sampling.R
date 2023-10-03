@@ -166,6 +166,7 @@ st_sample_radius_bounded <- function(pt,
 
 ##' @rdname st_sample_radius_bounded
 ##' @param pts Collection of points to resample location for
+##' @export
 st_sample_radius_bounded_set <- function(pts,
                                            radius=100,
                                            region,
