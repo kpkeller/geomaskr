@@ -100,7 +100,6 @@ sample_circle_boundedbox <- function(x, y, r, r0=0,
 myst_sample_radius <- function(pt, radius=100, region){
 
     new_pt <- sf::st_sample(region,
-                        size=1,
                         type="unifdisc",
                         radius=radius,
                         centre=sf::st_coordinates(pt),
