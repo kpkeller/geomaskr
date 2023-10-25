@@ -164,27 +164,42 @@ st_sample_radius_bounded <- function(pt,
     out
 }
 
+
+
+
 ##' @rdname st_sample_radius_bounded
 ##' @param pts Collection of points to resample location for
 ##' @export
 st_sample_radius_bounded_set <- function(pts,
-                                           radius=100,
-                                           region,
-                                           minradius=0,
-                                           maxretry=1000){
-    newpts <- data.frame()
-    newdists <- numeric()
-    for (j in 1:length(pts)){
-        newpts_temp <- st_sample_radius_bounded(pt=pts[j],
-                                                  radius=radius,
-                                                  region=region,
-                                                  minradius=minradius,
-                                                  maxretry=maxretry,
-                                                  return_dist=TRUE)
-        newpts <- rbind(newpts,
-                        newpts_temp$pt)
-        newdists <- rbind(newdists,
-                          newpts_temp$dist)
+                                         radius=100,
+                                         region,
+                                         minradius=0,
+                                         maxretry=1000){
+
+    newpts <- pts
+    newdists <- numeric(length=length(pts))
+
+    cover_ind <- sf::st_covers(region, pts)
+    cover_ind <- as.matrix(cover_ind)
+
+    for (r in 1:nrow(region)){
+        r_ind <- which(cover_ind[r,])
+
+        if (length(r_ind)==0) next;
+
+        r_pts <- pts[r_ind]
+
+        for (j in 1:length(r_pts)){
+        newpts_temp <- st_sample_radius_bounded(pt=r_pts[j],
+                                                radius=radius,
+                                                region=region[r,],
+                                                minradius=minradius,
+                                                maxretry=maxretry,
+                                                return_dist=TRUE)
+        newpts[r_ind[j]] <- newpts_temp$pt$geom
+        newdists[r_ind[j]] <- newpts_temp$dist
+    }
+
     }
     list(pt=newpts,
          dist=newdists)
