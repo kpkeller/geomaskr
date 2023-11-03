@@ -17,6 +17,7 @@
 #' @examples
 #' sample_circle(x=0, y=0, r=1, r0=0)
 sample_circle <- function(x, y, r, r0=0){
+    if (r0 > r) stop("Minimum radius must be no larger than outer radius.")
     n <- length(x)
     r_samp = sqrt(r0^2 + (r^2-r0^2)*(stats::runif(n)))
     theta_samp = stats::runif(n) * 2 * pi
@@ -71,6 +72,7 @@ sample_circle_boundedbox <- function(x, y, r, r0=0,
     if (length(inds)>0){
     for (i in 1:length(inds)){
         outside <- TRUE
+        new2 <- NA
         for (j in 1:max_redraw){
             # cat("j=", j, "\n")
             new2 <- sample_circle(x=x[inds[i]], y=y[inds[i]],
@@ -145,6 +147,7 @@ st_sample_radius_bounded <- function(pt,
 
 
     if((!inside) | tooclose){
+        new_pt <- NA
         for (i in 1:maxretry){
             newer_pt <- st_sample_radius(pt,
                                            radius=radius,
@@ -152,7 +155,10 @@ st_sample_radius_bounded <- function(pt,
             move_dist <-  as.numeric(st_distance(pt, newer_pt))
             if(st_intersects(region, newer_pt, sparse=F) & move_dist > minradius) break;
         }
-        if (i==maxretry) warning("max resample iteration reached.")
+        if (i==maxretry) {
+            warning("max resample iteration reached.")
+            newer_pt <- NA
+        }
         new_pt <- newer_pt
     }
     if (!return_dist){
@@ -196,8 +202,14 @@ st_sample_radius_bounded_set <- function(pts,
                                                 minradius=minradius,
                                                 maxretry=maxretry,
                                                 return_dist=TRUE)
-        newpts[r_ind[j]] <- newpts_temp$pt$geom
-        newdists[r_ind[j]] <- newpts_temp$dist
+        if (!is.na(newpts_temp$pt)){
+            newpts[r_ind[j]] <- newpts_temp$pt$geom
+            newdists[r_ind[j]] <- newpts_temp$dist
+        } else {
+            newpts[r_ind[j]] <- st_point()
+            newdists[r_ind[j]] <- NA
+        }
+
     }
 
     }
