@@ -175,6 +175,7 @@ st_sample_radius_bounded <- function(pt,
 
 ##' @rdname st_sample_radius_bounded
 ##' @param pts Collection of points to resample location for
+#' @importFrom sf st_covers st_point
 ##' @export
 st_sample_radius_bounded_set <- function(pts,
                                          radius=100,
@@ -206,7 +207,7 @@ st_sample_radius_bounded_set <- function(pts,
             newpts[r_ind[j]] <- newpts_temp$pt$geom
             newdists[r_ind[j]] <- newpts_temp$dist
         } else {
-            newpts[r_ind[j]] <- st_point()
+            newpts[r_ind[j]] <- sf::st_point()
             newdists[r_ind[j]] <- NA
         }
 
