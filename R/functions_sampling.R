@@ -158,6 +158,7 @@ st_sample_radius_bounded <- function(pt,
         if (i==maxretry) {
             warning("max resample iteration reached.")
             newer_pt <- NA
+            move_dist <- NA
         }
         new_pt <- newer_pt
     }
@@ -203,7 +204,7 @@ st_sample_radius_bounded_set <- function(pts,
                                                 minradius=minradius,
                                                 maxretry=maxretry,
                                                 return_dist=TRUE)
-        if (!is.na(newpts_temp$pt)){
+        if (!is.na(newpts_temp$dist)){
             newpts[r_ind[j]] <- newpts_temp$pt$geom
             newdists[r_ind[j]] <- newpts_temp$dist
         } else {
