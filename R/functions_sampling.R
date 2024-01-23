@@ -176,12 +176,18 @@ st_sample_radius_bounded <- function(pt,
 
 ##' @rdname st_sample_radius_bounded
 ##' @param pts Collection of points to resample location for
+##' @param k_anon K-anonymity value. Used for calculating the radius. Not used unless k_anon and pop_density are both provided.
+##' @param pop_density Population density, assumed to be in people per km^2. Used for calculating the radius. Not used unless k_anon and pop_density are both provided.
+##' @param verbose Logical for printing the calculated radii to output.
 #' @importFrom sf st_covers st_point
 ##' @export
 st_sample_radius_bounded_set <- function(pts,
                                          radius=100,
                                          region,
                                          minradius=0,
+                                         k_anon=NULL,
+                                         pop_density=NULL,
+                                         verbose=FALSE,
                                          maxretry=1000){
 
     newpts <- pts
@@ -190,16 +196,44 @@ st_sample_radius_bounded_set <- function(pts,
     cover_ind <- sf::st_covers(region, pts)
     cover_ind <- as.matrix(cover_ind)
 
+
+    if(!is.null(pop_density) & !is.null(k_anon)){
+        if (length(pop_density)==1){
+            pop_density <- rep(pop_density, length(pts))
+        }
+        if (length(k_anon)==1){
+            k_anon <- rep(k_anon, length(pts))
+        }
+        if (length(k_anon)!=length(pop_density)){
+            stop("Invalid k_anon and pop_density lengths.")
+        }
+        k_area <- k_anon/(pop_density)
+        rad <- 1000*sqrt(k_area/pi)
+        if (verbose){
+            cat("Calculated radius of:\n")
+            print(rad)
+        }
+    } else {
+        rad <- rep(radius, length(pts))
+
+    }
+
+
+
     for (r in 1:nrow(region)){
         r_ind <- which(cover_ind[r,])
 
         if (length(r_ind)==0) next;
 
         r_pts <- pts[r_ind]
+        r_rad <- rad[r_ind]
 
         for (j in 1:length(r_pts)){
+
+
+
         newpts_temp <- st_sample_radius_bounded(pt=r_pts[j],
-                                                radius=radius,
+                                                radius=r_rad[j],
                                                 region=region[r,],
                                                 minradius=minradius,
                                                 maxretry=maxretry,

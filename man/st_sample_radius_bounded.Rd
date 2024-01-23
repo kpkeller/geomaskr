@@ -23,6 +23,9 @@ st_sample_radius_bounded_set(
   radius = 100,
   region,
   minradius = 0,
+  k_anon = NULL,
+  pop_density = NULL,
+  verbose = FALSE,
   maxretry = 1000
 )
 }
@@ -40,6 +43,12 @@ st_sample_radius_bounded_set(
 \item{return_dist}{Logical indicator of whether or not to return the distance of new point from original point}
 
 \item{pts}{Collection of points to resample location for}
+
+\item{k_anon}{K-anonymity value. Used for calculating the radius. Not used unless k_anon and pop_density are both provided.}
+
+\item{pop_density}{Population density, assumed to be in people per km^2. Used for calculating the radius. Not used unless k_anon and pop_density are both provided.}
+
+\item{verbose}{Logical for printing the calculated radii to output.}
 }
 \value{
 \code{sfc} object containg the new point
