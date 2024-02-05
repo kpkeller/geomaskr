@@ -7,7 +7,7 @@
 \usage{
 calc_radius(k_anon, density, units_scale = 1)
 
-calc_k(radius, density)
+calc_k(radius, r0 = 0, density)
 }
 \arguments{
 \item{k_anon}{K-anonymity metric}
@@ -15,6 +15,10 @@ calc_k(radius, density)
 \item{density}{Population density}
 
 \item{units_scale}{Scaling factor for distances; defaults to 1. See details.}
+
+\item{radius}{Radius for calculating k_anonymity}
+
+\item{r0}{Minimum radius}
 }
 \description{
 Calculates radius for a specified k-anonymity and population density.

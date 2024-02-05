@@ -26,7 +26,8 @@ st_sample_radius_bounded_set(
   k_anon = NULL,
   pop_density = NULL,
   verbose = FALSE,
-  maxretry = 1000
+  maxretry = 1000,
+  radius_scale = 1000
 )
 }
 \arguments{
@@ -49,6 +50,8 @@ st_sample_radius_bounded_set(
 \item{pop_density}{Population density, assumed to be in people per km^2. Used for calculating the radius. Not used unless k_anon and pop_density are both provided.}
 
 \item{verbose}{Logical for printing the calculated radii to output.}
+
+\item{radius_scale}{Passed as units_scale to \link{calc_radius}}
 }
 \value{
 \code{sfc} object containg the new point

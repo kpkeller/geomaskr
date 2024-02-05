@@ -179,6 +179,7 @@ st_sample_radius_bounded <- function(pt,
 ##' @param k_anon K-anonymity value. Used for calculating the radius. Not used unless k_anon and pop_density are both provided.
 ##' @param pop_density Population density, assumed to be in people per km^2. Used for calculating the radius. Not used unless k_anon and pop_density are both provided.
 ##' @param verbose Logical for printing the calculated radii to output.
+##' @param radius_scale Passed as units_scale to \link{calc_radius}
 #' @importFrom sf st_covers st_point
 ##' @export
 st_sample_radius_bounded_set <- function(pts,
@@ -188,7 +189,8 @@ st_sample_radius_bounded_set <- function(pts,
                                          k_anon=NULL,
                                          pop_density=NULL,
                                          verbose=FALSE,
-                                         maxretry=1000){
+                                         maxretry=1000,
+                                         radius_scale=1000){
 
     newpts <- pts
     newdists <- numeric(length=length(pts))
@@ -207,8 +209,11 @@ st_sample_radius_bounded_set <- function(pts,
         if (length(k_anon)!=length(pop_density)){
             stop("Invalid k_anon and pop_density lengths.")
         }
-        k_area <- k_anon/(pop_density)
-        rad <- 1000*sqrt(k_area/pi)
+        rad <-calc_radius(k_anon=k_anon,
+                    density=pop_density,
+                    units_scale=radius_scale)
+        # k_area <- k_anon/(pop_density)
+        # rad <- 1000*sqrt(k_area/pi)
         if (verbose){
             cat("Calculated radius of:\n")
             print(rad)
@@ -271,9 +276,12 @@ calc_radius <- function(k_anon,
 }
 
 ##' @rdname calc_radius
+##' @param radius Radius for calculating k_anonymity
+##' @param r0 Minimum radius
 ##' @export
 calc_k <- function(radius,
+                   r0=0,
                    density) {
-    k <- density*pi*(radius)^2
+    k <- density*pi*((radius)^2 - r0^2)
     return(k)
 }
