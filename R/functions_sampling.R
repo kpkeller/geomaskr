@@ -182,6 +182,7 @@ st_sample_radius_bounded <- function(pt,
 ##' @param radius_scale Passed as units_scale to \link{calc_radius}
 #' @importFrom sf st_covers st_point
 ##' @export
+##' @seealso \code{\link{calc_radius}}
 st_sample_radius_bounded_set <- function(pts,
                                          radius=100,
                                          region,

@@ -62,3 +62,6 @@ Randomly samples points within a given radius using  functions from `sf` and `sp
 \details{
 New point is transformed to CRS of `pt`
 }
+\seealso{
+\code{\link{calc_radius}}
+}
