@@ -267,6 +267,7 @@ st_sample_radius_bounded_set <- function(pts,
 ##'
 ##' @details The scaling factor is applied to the radius at the end of the calculation. For example, if density is in persons/km2, then setting units_scale=1000 in calc_radius would result in the necessary radius in meters.
 ##' @export
+##' @seealso [st_sample_radius_bounded()]
 calc_radius <- function(k_anon,
                         density,
                         units_scale=1) {
