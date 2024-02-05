@@ -27,7 +27,7 @@ st_sample_radius_bounded_set(
   pop_density = NULL,
   verbose = FALSE,
   maxretry = 1000,
-  radius_scale = 1000
+  radius_scale = 1
 )
 }
 \arguments{
