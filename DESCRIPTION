@@ -1,9 +1,8 @@
 Package: geomaskr
 Type: Package
 Title: Geomask Locations in R
-Version: 0.1.0.9011
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Version: 0.1.0.9012
+Description: Functions to support geomasking locations.
 License: GPL (>= 3)
 Encoding: UTF-8
 Imports: sf

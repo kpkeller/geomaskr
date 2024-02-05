@@ -252,3 +252,25 @@ st_sample_radius_bounded_set <- function(pts,
     list(pt=newpts,
          dist=newdists)
 }
+
+#' calc_radius
+#' @description Calculates radius for a specified k-anonymity and population density.
+##' @param k_anon K-anonymity metric
+##' @export
+calc_radius <- function(k_anon,
+                        density,
+                        units_scale=1) {
+
+    k_area <- k_anon/(density)
+    rad <- units_scale*sqrt(k_area/pi)
+    return(rad)
+}
+
+##' @rdname calc_radius
+##' @export
+calc_k <- function(radius,
+                   density,
+                   units_scale=1) {
+    k <- density*pi*(radius*units_scale)^2
+    return(k)
+}
