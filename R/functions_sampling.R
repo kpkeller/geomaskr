@@ -256,6 +256,10 @@ st_sample_radius_bounded_set <- function(pts,
 #' calc_radius
 #' @description Calculates radius for a specified k-anonymity and population density.
 ##' @param k_anon K-anonymity metric
+##' @param density Population density
+##' @param units_scale Scaling factor for distances; defaults to 1. See details.
+##'
+##' @details The scaling factor is applied to the radius at the end of the calculation. For example, if density is in persons/km2, then setting units_scale=1000 in calc_radius would result in the necessary radius in meters.
 ##' @export
 calc_radius <- function(k_anon,
                         density,
@@ -269,8 +273,7 @@ calc_radius <- function(k_anon,
 ##' @rdname calc_radius
 ##' @export
 calc_k <- function(radius,
-                   density,
-                   units_scale=1) {
-    k <- density*pi*(radius*units_scale)^2
+                   density) {
+    k <- density*pi*(radius)^2
     return(k)
 }
