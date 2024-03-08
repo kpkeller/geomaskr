@@ -1,7 +1,7 @@
 Package: geomaskr
 Type: Package
 Title: Geomask Locations in R
-Version: 0.1.0.9020
+Version: 0.1.0.9021
 Description: Functions to conduct geomasking of coordinate locations.
 License: GPL (>= 3)
 Encoding: UTF-8
