@@ -266,7 +266,9 @@ st_sample_radius_bounded_set <- function(pts,
 
     }
     list(pt=newpts,
-         dist=newdists)
+         dist=newdists,
+         radius=rad,
+         minradius=minradius)
 }
 
 #' calc_radius
