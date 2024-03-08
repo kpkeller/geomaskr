@@ -24,7 +24,7 @@ calc_k(radius, r0 = 0, density)
 Calculates radius for a specified k-anonymity and population density.
 }
 \details{
-The scaling factor is applied to the radius at the end of the calculation. For example, if density is in persons/km2, then setting units_scale=1000 in calc_radius would result in the necessary radius in meters.
+The scaling factor is applied to the radius at the end of the calculation. For example, if density is in persons/km2, then setting \code{units_scale=1000} in \code{calc_radius} would result in the necessary radius in meters.
 }
 \seealso{
 \code{\link{st_sample_radius_bounded}}

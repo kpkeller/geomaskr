@@ -3,6 +3,16 @@
 ## participant locations
 ##
 ## Author: Kayleigh Keller
+##
+## In this file:
+#
+# sample_circle
+# sample_circle_boundedbox
+# st_sample_radius
+# st_sample_radius_bounded
+# st_sample_radius_bounded_set
+# calc_radius
+# calc_k
 
 #' sample_circle
 #'
@@ -265,7 +275,7 @@ st_sample_radius_bounded_set <- function(pts,
 ##' @param density Population density
 ##' @param units_scale Scaling factor for distances; defaults to 1. See details.
 ##'
-##' @details The scaling factor is applied to the radius at the end of the calculation. For example, if density is in persons/km2, then setting units_scale=1000 in calc_radius would result in the necessary radius in meters.
+##' @details The scaling factor is applied to the radius at the end of the calculation. For example, if density is in persons/km2, then setting \code{units_scale=1000} in \code{calc_radius} would result in the necessary radius in meters.
 ##' @export
 ##' @seealso \code{\link{st_sample_radius_bounded}}
 calc_radius <- function(k_anon,
